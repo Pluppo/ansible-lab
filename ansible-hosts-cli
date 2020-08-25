@@ -7,6 +7,9 @@ nxos2           ansible_host=10.203.12.202
 nxos3           ansible_host=10.203.12.203
 nxos4           ansible_host=10.203.12.204
 
+[nxos-group2]
+nxos5           ansible_host=10.203.12.205
+
 [nxos:vars]
 gather_facts=False
 ansible_network_os=nxos

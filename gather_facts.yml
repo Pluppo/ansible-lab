@@ -5,18 +5,7 @@
   hosts: nxos
   gather_facts: yes
   tasks:
-    - name: Print net_platform
+    - name: Print NXOS facts
       debug:
-        var: ansible_facts.net_platform
+        var: ansible_facts
 
-    - name: Print net_version
-      debug:
-        var: ansible_facts.net_version
-
-    - name: Print interface list
-      debug:
-        var: ansible_facts.net_interfaces_list
-
-    - name: Print 3rd interface in list
-      debug:
-        var: ansible_facts.net_interfaces_list[2]
