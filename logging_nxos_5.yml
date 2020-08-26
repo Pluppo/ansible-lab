@@ -24,19 +24,17 @@
         commands: "show run | i ^logging"
       register: output
 
-    - set_fact:
-        current_logging: "{{ output.stdout_lines[0] }}"
-
     - name: Find extra unneded lines
       set_fact:
-       extra_logging: "{{ current_logging | difference(logg_config) | list }}"
+        extra_logging: "{{ output.stdout_lines[0] | difference(logg_config) }}"
 
     - name: "Construct the 'no logging...' command to remove unneeded lines"
       set_fact:
         no_logging: "{{ lookup('template', './TEMPLATES/no_logging.j2') | from_yaml }}"
+      when: "extra_logging != []"
 
     - name: Remove unneeded log confiuration
       nxos_config:
         lines: "{{ no_logging }}"
         save_when: changed
-      when: no_logging is defined
+      when: "extra_logging != []"
